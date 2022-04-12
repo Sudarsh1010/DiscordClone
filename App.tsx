@@ -8,7 +8,14 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
 import { StreamChat } from 'stream-chat' 
-import { OverlayProvider, Chat, ChannelList, Channel } from 'stream-chat-expo'
+import {
+  OverlayProvider,
+  Chat,
+  ChannelList,
+  Channel,
+  MessageList,
+  MessageInput
+} from 'stream-chat-expo'
 import { useEffect, useState } from 'react';
 
 const API_KEY = 'mw247h6u2phv';
@@ -38,6 +45,7 @@ export default function App() {
 
     await channel.create();
 
+    setSelectedChannel(channel)
     setIsReady(true)
   }
   
@@ -45,10 +53,10 @@ export default function App() {
       connectUser()
   }, [])
   
-  const onChannelSelect = (channel) => {
-    console.log(channel)
-    setSelectedChannel(channel)
-  }
+  // const onChannelSelect = (channel) => {
+  //   console.log(channel)
+  //   setSelectedChannel(channel)
+  // }
 
   if (!isLoadingComplete || !isReady) {
     return null;
@@ -58,17 +66,23 @@ export default function App() {
         <OverlayProvider>
           <Chat client={client}>
             {/* <Navigation ColorScheme={ColorSchemes} /> */}
-            {!selectedChannel
+            {/* {!selectedChannel
               ? (
                 <ChannelList  onSelect={onChannelSelect} />
-              ) : (
+              ) : ( */}
                 <>
                   <Channel channel={selectedChannel}>
-                    <Text onPress={() => setSelectedChannel(null)}>GO BACK!</Text>
+                    <Text style={{ marginTop: 50, marginLeft: 20}}
+                      // onPress={() => setSelectedChannel(null)}
+                    >
+                      GO BACK!
+                    </Text>
+                    <MessageList/>
+                    <MessageInput/>
                   </Channel>                  
                 </>
-              )
-            }
+              {/* )
+            } */}
           </Chat>
         </OverlayProvider>
         <StatusBar />
