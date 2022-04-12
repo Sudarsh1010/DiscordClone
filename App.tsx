@@ -45,7 +45,7 @@ export default function App() {
 
     await channel.create();
 
-    setSelectedChannel(channel)
+    // setSelectedChannel(channel)
     setIsReady(true)
   }
   
@@ -53,10 +53,10 @@ export default function App() {
       connectUser()
   }, [])
   
-  // const onChannelSelect = (channel) => {
-  //   console.log(channel)
-  //   setSelectedChannel(channel)
-  // }
+  const onChannelSelect = (channel) => {
+    console.log(channel)
+    setSelectedChannel(channel)
+  }
 
   if (!isLoadingComplete || !isReady) {
     return null;
@@ -66,13 +66,13 @@ export default function App() {
         <OverlayProvider>
           <Chat client={client}>
             {/* <Navigation ColorScheme={ColorSchemes} /> */}
-            {/* {!selectedChannel
+            {!selectedChannel
               ? (
                 <ChannelList  onSelect={onChannelSelect} />
-              ) : ( */}
+              ) : (
                 <>
                   <Channel channel={selectedChannel}>
-                    <Text style={{ marginTop: 50, marginLeft: 20}}
+                    <Text style={{ marginVertical: 30, marginHorizontal: 20}}
                       // onPress={() => setSelectedChannel(null)}
                     >
                       GO BACK!
@@ -81,8 +81,8 @@ export default function App() {
                     <MessageInput/>
                   </Channel>                  
                 </>
-              {/* )
-            } */}
+              )
+            }
           </Chat>
         </OverlayProvider>
         <StatusBar />
